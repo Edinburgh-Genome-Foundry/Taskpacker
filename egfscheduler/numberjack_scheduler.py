@@ -1,5 +1,4 @@
 import itertools as itt
-import numpy as np
 import Numberjack as nj
 
 
@@ -50,14 +49,27 @@ def numberjack_scheduler(work_units, upper_bound=500,
 
     # Create Numberjack variables to represent the tasks
     # ( starting times and resource instance that they use).
-    nj_tasks = {
-        task: nj.Task(upper_bound, task.duration)
-        for task in all_tasks
-    }
+    nj_tasks = {}
+    for task in all_tasks:
+        if task.scheduled is None:
+            new_nj_task = nj.Task(upper_bound, task.duration)
+        else:
+            new_nj_task = nj.Task(
+                task.scheduled[0],
+                task.scheduled[0]+task.duration,
+                task.duration
+            )
+        new_nj_task.name = task.name
+        nj_tasks[task] = new_nj_task
 
     nj_taskresources = {
-        task: {resource: nj.Variable(1, resource.capacity)
-               for resource in task.resources}
+        task: {
+            resource: (
+                nj.Variable(1, resource.capacity)
+                if task.scheduled is None else
+                nj.Variable([task.scheduled[2][resource]])
+            )
+            for resource in task.resources}
         for task in all_tasks
     }
 
@@ -70,7 +82,10 @@ def numberjack_scheduler(work_units, upper_bound=500,
     model = nj.Model()
 
     for resource in all_resources:
-        if resource.capacity == 1:
+
+        if resource.capacity == 'inf':
+            continue
+        elif resource.capacity == 1:
             # The resource has one slot: Only one job at the same time
             model.add(nj.UnaryResource([
                 nj_tasks[task] for task in all_tasks
@@ -140,7 +155,7 @@ def numberjack_scheduler(work_units, upper_bound=500,
     # Plus a penalty just to compress a little more:
     # sum ( work_unit.t_end for all work_units)
     if optimize:
-        C_max = nj.Variable(lower_bound, 1500000, 'C_max')
+        C_max = nj.Variable(lower_bound, 15000000, 'C_max')
         model.add(
             C_max >
             sum([
@@ -186,60 +201,3 @@ def numberjack_scheduler(work_units, upper_bound=500,
         task.scheduled = (start, end, resources)
 
     return work_units
-
-
-def plot_schedule(work_units):
-    """ Plot the work units schedule in a gant-like way.
-
-    This is quite basic and arbitrary and really meant for R&D purposes.
-
-    Example
-    -------
-
-    >>> # ... Make some work units
-    >>> solve_constraints(work_units)
-    >>> plot_schedule(work_units)
-
-    """
-
-    try:
-        import matplotlib.pyplot as plt
-        import matplotlib.cm as cm
-    except:
-        raise ImportError("Plotting requires Matplotlib.")
-
-    all_resources = list(set([
-        resource
-        for work_unit in work_units
-        for task in work_unit.tasks
-        for resource in task.resources
-    ]))
-
-    colors = itt.cycle([cm.Paired(0.21*i % 1.0) for i in range(30)])
-    fig, ax = plt.subplots(1, figsize=(15, 6))
-    max_end = 0
-    for work_unit in work_units:
-        color = colors.next()
-        label = work_unit.name
-        for task in work_unit.tasks:
-            start, end, resources = task.scheduled
-            max_end = max(end, max_end)
-            for y in [all_resources.index(resource) +
-                      0.2 + .6*resources[resource]/resource.capacity
-                      for resource in task.resources]:
-                ax.plot([start, end], [y, y], color=color, lw=10, label=label)
-                label = None
-
-    strips_colors = itt.cycle([(1, 1, 1), (1, 0.92, 0.92)])
-    for i, color in zip(range(-1, len(all_resources)+1), strips_colors):
-        ax.fill_between([0, 1.1*max_end], [i, i], y2=[i+1, i+1], color=color)
-
-    N = len(all_resources)
-    ax.set_yticks(np.arange(N)+0.5)
-    ax.set_ylim(-max(1, int(0.4*N)), max(2, int(1.5*N)))
-    ax.set_yticklabels(all_resources)
-    ax.legend(ncol=3, fontsize=8)
-    ax.set_xlabel("time (a.u.)")
-    ax.set_xlim(0, 1.1*max_end)
-
-    return fig, ax

@@ -1,7 +1,4 @@
 import itertools as itt
-import numpy as np
-
-import Numberjack as nj
 
 tasks_counter = itt.count()
 work_units_counter = itt.count()
@@ -40,12 +37,14 @@ class Task:
       Duration of the task (the choice of the unit is left to the user.
 
     """
-    def __init__(self, name, resources, duration):
+
+    def __init__(self, name, resources, duration, scheduled=None):
 
         self.resources = resources
         self.duration = duration
         self.name = name
         self.id = tasks_counter.next()
+        self.scheduled = scheduled
 
     def __repr__(self):
         return "Task(%(id)d, %(name)s, %(duration)s)" % self.__dict__

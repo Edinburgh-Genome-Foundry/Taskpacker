@@ -3,7 +3,7 @@ ez_setup.use_setuptools()
 
 from setuptools import setup, find_packages
 
-exec(open('EGFScheduler/version.py').read()) # loads __version__
+exec(open('egfscheduler/version.py').read()) # loads __version__
 
 setup(name='EGFScheduler',
       version=__version__,
@@ -12,4 +12,5 @@ setup(name='EGFScheduler',
     long_description=open('README.rst').read(),
     license='see LICENSE.txt',
     keywords="",
-    packages= find_packages(exclude='docs'))
+    packages= find_packages(exclude='docs'),
+    install_requires= ['Numberjack']))
