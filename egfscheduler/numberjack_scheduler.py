@@ -65,6 +65,8 @@ def numberjack_scheduler(work_units, upper_bound=500,
     nj_taskresources = {
         task: {
             resource: (
+                # If a task is already scheduled to some slot, its slot is
+                # one-choice variable. Otherwise it is a 1..nSlots variable
                 nj.Variable(1, resource.capacity)
                 if task.scheduled is None else
                 nj.Variable([task.scheduled[2][resource]])
@@ -155,7 +157,7 @@ def numberjack_scheduler(work_units, upper_bound=500,
     # Plus a penalty just to compress a little more:
     # sum ( work_unit.t_end for all work_units)
     if optimize:
-        C_max = nj.Variable(lower_bound, 15000000, 'C_max')
+        C_max = nj.Variable(lower_bound, 150000000, 'C_max')
         model.add(
             C_max >
             sum([

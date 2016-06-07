@@ -14,9 +14,9 @@ human_operator = Resource("Human operator", capacity=1)
 tecan_evo = Resource("Tecan EVO", capacity=2)
 trobot = Resource("TRobot", capacity=5)
 fragment_analyser = Resource("Fragment_analyser", capacity=1)
-qpix = Resource("QPix", 1)
-incubator = Resource("Incubator", 'inf')
-shaker = Resource("Shaker", 2)
+qpix = Resource("QPix", capacity=1)
+incubator = Resource("Incubator", capacity='inf')
+shaker = Resource("Shaker", capacity=2)
 
 
 def yeastfab_workunit(name, due_time=None, priority=1, parents=None):
@@ -36,7 +36,7 @@ def yeastfab_workunit(name, due_time=None, priority=1, parents=None):
 
             # Golden Gate ligation
             Task('Golden_Gate_mix', [tecan_evo], 15),
-            Task('Golden_Gate_incub', [trobot], 48),
+            Task('Golden_Gate_incub', [trobot], 475),
 
             # Transformation
             Task('Transfo', [tecan_evo], 30),
@@ -79,7 +79,7 @@ def yeastfab_workunit(name, due_time=None, priority=1, parents=None):
         parents=parents
     )
 
-N_workunits = 20
+N_workunits = 25
 
 
 workunits = [
@@ -94,11 +94,11 @@ print ("Now placing the tasks one by one")
 for workunit in tqdm(workunits):
     workunit_copy = copy(workunit)
     considered_workunits.append(workunit_copy)
-    for i in range(10):
+    while True:
         try:
             numberjack_scheduler(
                 considered_workunits,
-                upper_bound=2000*(i+1),
+                upper_bound=3000*(i+1),
                 time_limit=20
             )
             break
@@ -107,4 +107,5 @@ for workunit in tqdm(workunits):
 
 print ("The scheduling is done !")
 fig, ax = plot_schedule(considered_workunits)
+fig.savefig("../../test.png")
 plt.show()

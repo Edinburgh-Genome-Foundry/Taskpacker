@@ -4,14 +4,14 @@ def gap_constraints(task1_name, task2_name, min_gap=None, max_gap=None):
         return lambda tasks: (
             (get_task_by_name(tasks, task1_name) +
              get_task_by_name(tasks, task1_name).duration +
-             min_gap) > get_task_by_name(tasks, task2_name)
+             min_gap) < get_task_by_name(tasks, task2_name)
         )
     elif min_gap is None:
         # only a max gap has been provided
         return lambda tasks: (
             (get_task_by_name(tasks, task1_name) +
              get_task_by_name(tasks, task1_name).duration +
-             max_gap) < get_task_by_name(tasks, task2_name)
+             max_gap) > get_task_by_name(tasks, task2_name)
         )
     else:
         return [
@@ -21,6 +21,10 @@ def gap_constraints(task1_name, task2_name, min_gap=None, max_gap=None):
 
 
 def get_task_by_name(tasks_list, name):
+    """Return the task from the list that verifies task.name == name.
+
+    If there are 0 or more than 2 tasks with that name, a ValueError is raised.
+    """
     tasks = [
         task for task in tasks_list
         if task.name == name

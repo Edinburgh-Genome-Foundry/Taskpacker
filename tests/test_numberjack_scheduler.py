@@ -9,8 +9,6 @@ class NumberJackSchedulerTest(unittest.TestCase):  # 1
     def tearDown(self):  # 3
         pass
 
-
-
     def test_due_date(self):
         """
         self.assertIn('To-Do', header_text)
