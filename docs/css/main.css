@@ -1,0 +1,24 @@
+body, h1, h2, h3 {
+    font-family: Raleway;
+}
+
+.wy-nav-content-wrap {
+    background: none
+}
+
+.wy-nav-side {
+    background-image: url("../images/pw_maze_purple.png");
+}
+
+.wy-menu-vertical a {
+    color: black
+}
+
+.wy-menu-vertical a:hover {
+    background-color: #dad5e5
+}
+
+.wy-side-nav-search, .wy-nav-top {
+    background-color: #f2eefc;
+    color: #fcfcfc
+}

@@ -3,14 +3,15 @@ ez_setup.use_setuptools()
 
 from setuptools import setup, find_packages
 
-exec(open('egfscheduler/version.py').read()) # loads __version__
+exec(open('taskpacker/version.py').read()) # loads __version__
 
-setup(name='EGFScheduler',
-      version=__version__,
-      author='Valentin',
+setup(
+    name='taskpacker',
+    version=__version__,
+    author='Valentin',
     description='',
     long_description=open('README.rst').read(),
-    license='see LICENSE.txt',
+    license='MIT',
     keywords="",
-    packages= find_packages(exclude='docs'),
-    install_requires= ['Numberjack']))
+    packages=find_packages(exclude='docs'),
+    install_requires=['Numberjack', 'numpy'])
