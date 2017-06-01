@@ -1,0 +1,391 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Taskpacker Documentation &mdash; Plateo 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="_static/css/main.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Plateo 0.1.0 documentation" href="#"/>
+        <link rel="next" title="Reference" href="ref.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> Plateo
+          
+
+          
+            
+            <img src="_static/html_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Taskpacker Documentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ref.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">Plateo</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>Taskpacker Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="taskpacker-documentation">
+<h1>Taskpacker Documentation<a class="headerlink" href="#taskpacker-documentation" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="_images/title.png"><img alt="_images/title.png" class="align-center" src="_images/title.png" style="width: 600px;" /></a>
+<p>Taskpacker is a generic schedule optimization and visualization library for Python.
+For instance, below is the optimized schedule of 20 batches of 96 DNA assemblies,
+using first-generation cloning technologies:</p>
+<a class="reference internal image-reference" href="_images/dna_assembly.png"><img alt="[logo]" class="align-center" src="_images/dna_assembly.png" style="width: 600px;" /></a>
+<p>Such plots enable you to spot the bottlenecks of your factory. In this example,
+it appears that ovens are the limiting elements (the only machines packed full
+with no downtime) and that buying a third oven will increase your factory’s
+throughput.</p>
+<div class="section" id="main-features">
+<h2>Main features<a class="headerlink" href="#main-features" title="Permalink to this headline">¶</a></h2>
+<p>Taskpacker was built as a toy project to have an easily-extensible scheduling tool in Python.
+It is pretty simple and limited (the core code is ~200 lines) but comes with enough features to cover many cases:</p>
+<ul class="simple">
+<li>Supports resources (typically, people or robots) and resource capacity
+(= how much jobs a resource can do at the same time)</li>
+<li>Supports tasks dependencies (some tasks must be finished before other tasks
+can be started) and maximum waiting time (i.e. some tasks must be started at the
+latest X minutes after their <em>parents</em> are completed)</li>
+<li>Supports pre-scheduled tasks (such as breaks for human operators, scheduled robotic maintenance etc.)</li>
+</ul>
+</div>
+<div class="section" id="work-in-progress-contribute">
+<h2>Work in progress - contribute !<a class="headerlink" href="#work-in-progress-contribute" title="Permalink to this headline">¶</a></h2>
+<p>Taskpacker is an open-source software originally written by <a class="reference external" href="https://github.com/Zulko">Zulko</a> to
+optimize the robot-operated DNA assembly operations at the Edinburgh Genome Foundry (EGF). at the <a class="reference external" href="http://www.genomefoundry.io">Edinburgh Genome Foundry</a>. It is released and <a class="reference external" href="https://github.com/Edinburgh-Genome-Foundry/plateo">released on Github</a>
+under the MIT licence (¢ Edinburgh Genome Foundry), with no warranties: this is
+an experimental piece of software which we hope will be as useful for you as it was for us.
+And everyone is welcome to contribute !</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Taskpacker can be installed by unzipping the source code in one directory and using this command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>You can also install it directly from the Python Package Index with this command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">pip</span> <span class="n">taskpacker</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-example">
+<h2>Basic Example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
+<p>In this example two labbies have been assigned a list of chores.
+Alice will visit the GMO plants, cook the hamsters, and feed the gremlins.
+Bob will clean the scalpels, dice the hamsters once they are cooked, then
+assist Alice in gremlins feeding (a task that takes two people).
+Certain tasks can only be done after other tasks have been completed.
+Alice has a stereotypical predisposition to multitasking: she can do 2 jobs at
+the same time, while Bob can’t.</p>
+<p>Here is how you would use Taskpacker to find when they will do each task so as
+to finish as early as possible:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">taskpacker</span> <span class="k">import</span> <span class="n">Task</span><span class="p">,</span> <span class="n">Resource</span><span class="p">,</span> <span class="n">numberjack_scheduler</span><span class="p">,</span> <span class="n">plot_schedule</span>
+<span class="n">alice</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="s2">&quot;Alice&quot;</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">bob</span> <span class="o">=</span> <span class="n">Resource</span><span class="p">(</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+
+<span class="n">clean_scalpels</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span><span class="s2">&quot;Clean the scalpels&quot;</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="p">[</span><span class="n">bob</span><span class="p">],</span> <span class="n">duration</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                      <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">visit_plants</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span><span class="s2">&quot;Visit the plants&quot;</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="p">[</span><span class="n">alice</span><span class="p">],</span> <span class="n">duration</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+<span class="n">cook_hamsters</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span><span class="s2">&quot;Cook the hamsters&quot;</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="p">[</span><span class="n">alice</span><span class="p">],</span> <span class="n">duration</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<span class="n">dice_hamsters</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span><span class="s2">&quot;Dice the hamsters&quot;</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="p">[</span><span class="n">bob</span><span class="p">],</span> <span class="n">duration</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">follows</span><span class="o">=</span><span class="p">[</span><span class="n">cook_hamsters</span><span class="p">,</span> <span class="n">clean_scalpels</span><span class="p">])</span>
+<span class="n">feed_gremlins</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span><span class="s2">&quot;Feed the gremlins&quot;</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="p">[</span><span class="n">alice</span><span class="p">,</span> <span class="n">bob</span><span class="p">],</span> <span class="n">duration</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">follows</span><span class="o">=</span><span class="p">[</span><span class="n">dice_hamsters</span><span class="p">])</span>
+
+
+<span class="n">all_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">clean_scalpels</span><span class="p">,</span> <span class="n">visit_plants</span><span class="p">,</span> <span class="n">cook_hamsters</span><span class="p">,</span> <span class="n">dice_hamsters</span><span class="p">,</span>
+             <span class="n">feed_gremlins</span><span class="p">]</span>
+<span class="n">scheduled_tasks</span> <span class="o">=</span> <span class="n">numberjack_scheduler</span><span class="p">(</span><span class="n">all_tasks</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_schedule</span><span class="p">(</span><span class="n">scheduled_tasks</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;alice_and_bod.png&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>## Modeling tasks and reources with spreadsheets</p>
+<p>Assume that you have a process consisting in several tasks, each task depending
+on some resources to be available, and possibly on other tasks. Such process can
+be summarized in a spreadsheet like this one <a href="#id2"><span class="problematic" id="id3">`this file &lt;&gt;`_</span></a>, which is loaded in
+Taskpacker as follows:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">taskpacker</span> <span class="k">import</span> <span class="p">(</span><span class="n">get_resources_from_spreadsheet</span><span class="p">,</span>
+                        <span class="n">get_process_from_spreadsheet</span><span class="p">)</span>
+
+<span class="n">resources</span> <span class="o">=</span> <span class="n">get_resources_from_spreadsheet</span><span class="p">(</span>
+    <span class="n">spreadsheet_path</span><span class="o">=</span><span class="s2">&quot;path/to/spreadsheet.xls&quot;</span><span class="p">,</span> <span class="n">sheetname</span><span class="o">=</span><span class="s2">&quot;resources&quot;</span><span class="p">)</span>
+
+<span class="n">process_tasks</span> <span class="o">=</span> <span class="n">get_process_from_spreadsheet</span><span class="p">(</span>
+    <span class="n">spreadsheet_path</span><span class="o">=</span><span class="s2">&quot;path/to/spreadsheet.xls&quot;</span><span class="p">,</span>
+    <span class="n">sheetname</span><span class="o">=</span><span class="s2">&quot;process&quot;</span><span class="p">,</span>
+    <span class="n">resources_dict</span><span class="o">=</span><span class="n">resources</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Then you can for instance plot the dependency graph of the tasks:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">taskpacker</span> <span class="k">import</span> <span class="n">plot_tasks_dependency_graph</span>
+<span class="n">plot_tasks_dependency_graph</span><span class="p">(</span><span class="n">process_tasks</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/process_plan.png"><img alt="[logo]" class="align-center" src="_images/process_plan.png" style="width: 600px;" /></a>
+<p>Or simply schedule the tasks:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">taskpacker</span> <span class="k">import</span> <span class="n">numberjack_scheduler</span>
+<span class="n">scheduled_tasks</span> <span class="o">=</span> <span class="n">numberjack_scheduler</span><span class="p">(</span><span class="n">process_tasks</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="throughput-estimations">
+<h2>Throughput estimations<a class="headerlink" href="#throughput-estimations" title="Permalink to this headline">¶</a></h2>
+<p>Given a list of tasks forming a process, you might ask “how many of these processes
+can my factory run in a day ?”. The following code loads 20 of these processes
+and asks Taskpacker to stack them one by one as compactly as possible:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">taskpacker</span> <span class="k">import</span> <span class="p">(</span><span class="n">get_process_from_spreadsheet</span><span class="p">,</span>
+                        <span class="n">get_resources_from_spreadsheet</span><span class="p">,</span>
+                        <span class="n">schedule_processes_series</span><span class="p">,</span>
+                        <span class="n">plot_tasks_dependency_tree</span><span class="p">,</span>
+                        <span class="n">plot_schedule</span><span class="p">,</span> <span class="n">Task</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
+
+
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">cm</span><span class="o">.</span><span class="n">Paired</span><span class="p">(</span><span class="mf">0.21</span> <span class="o">*</span> <span class="n">i</span> <span class="o">%</span> <span class="mf">1.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">)]</span>
+
+<span class="n">resources</span> <span class="o">=</span> <span class="n">get_resources_from_spreadsheet</span><span class="p">(</span>
+    <span class="n">spreadsheet_path</span><span class="o">=</span><span class="s2">&quot;path/to/spreadsheet.xls&quot;</span><span class="p">,</span> <span class="n">sheetname</span><span class="o">=</span><span class="s2">&quot;resources&quot;</span><span class="p">)</span>
+
+<span class="n">processes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">get_process_from_spreadsheet</span><span class="p">(</span><span class="n">spreadsheet_path</span><span class="o">=</span><span class="s2">&quot;path/to/spreadsheet.xls&quot;</span><span class="p">,</span>
+                                 <span class="n">sheetname</span><span class="o">=</span><span class="s2">&quot;process&quot;</span><span class="p">,</span>
+                                 <span class="n">resources_dict</span><span class="o">=</span><span class="n">resources</span><span class="p">,</span>
+                                 <span class="n">tasks_color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                                 <span class="n">task_name_prefix</span><span class="o">=</span><span class="s2">&quot;WU</span><span class="si">%d</span><span class="s2">_&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># OPTIMIZE THE SCHEDULE</span>
+<span class="n">new_processes</span> <span class="o">=</span> <span class="n">schedule_processes_series</span><span class="p">(</span>
+    <span class="n">processes</span><span class="p">,</span> <span class="n">est_process_duration</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">time_limit</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># PLOT THE OPTIMIZED SCHEDULE</span>
+
+<span class="n">all_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">new_processes</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">process</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_schedule</span><span class="p">(</span><span class="n">all_tasks</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;time (min)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;dna_assembly_schedule.png&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/dna_assembly.png"><img alt="[dna_assembly.png]" class="align-center" src="_images/dna_assembly.png" style="width: 600px;" /></a>
+<p>Note that it is also possible to add scheduled breaks so that your Igor can rest:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">scheduled_breaks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Task</span><span class="p">(</span><span class="s2">&quot;break_</span><span class="si">%03d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span>
+         <span class="n">resources</span><span class="o">=</span><span class="p">[</span><span class="n">resources</span><span class="p">[</span><span class="s2">&quot;igor&quot;</span><span class="p">]],</span>
+         <span class="n">scheduled_resource</span><span class="o">=</span><span class="p">{</span><span class="n">resources</span><span class="p">[</span><span class="s2">&quot;igor&quot;</span><span class="p">]:</span> <span class="mi">1</span><span class="p">},</span>
+         <span class="n">duration</span><span class="o">=</span><span class="mi">12</span> <span class="o">*</span> <span class="mi">60</span><span class="p">,</span> <span class="c1"># The break lasts 12H</span>
+         <span class="n">scheduled_start</span><span class="o">=</span><span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="c1"># The break happens every 24H</span>
+         <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">new_processes</span> <span class="o">=</span> <span class="n">schedule_processes_series</span><span class="p">(</span>
+    <span class="n">processes</span><span class="p">,</span> <span class="n">est_process_duration</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">time_limit</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">scheduled_tasks</span><span class="o">=</span><span class="n">scheduled_breaks</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/dna_assembly_with_breaks.png"><img alt="[dna_assembly_with_breaks.png]" class="align-center" src="_images/dna_assembly_with_breaks.png" style="width: 600px;" /></a>
+<a href="https://twitter.com/share" class="twitter-share-button"
+data-text="Taskpacker - a schedule optimization library for Python" data-size="large" data-hashtags="Bioprinting">Tweet
+</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';
+fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+</script>
+<iframe src="http://ghbtns.com/github-btn.html?user=Edinburgh-Genome-Foundry&repo=Taskpacker&type=watch&count=true&size=large"
+allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px" margin-bottom="30px"></iframe><div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ref.html" class="btn btn-neutral float-right" title="Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Edinburgh Genome Foundry.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
