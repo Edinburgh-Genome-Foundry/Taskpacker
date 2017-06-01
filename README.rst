@@ -10,10 +10,10 @@ Taskpacker is a generic schedule optimization and visualization library for Pyth
 For instance, below is the optimized schedule of 20 batches of 96 DNA assemblies,
 assuming a robotic foundry running 24/7:
 
-.. image:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/Taskpacker/examples/dna_assembly_schedule.png
-   :alt: [example_scheduling]
-   :align: center
-   :width: 600px
+.. image:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/Taskpacker/master/examples/dna_assembly.png
+ :alt: [dna_assembly.png]
+ :align: center
+ :width: 600px
 
 Such plots enable you to spot the bottlenecks of your factory. In this example,
 it appears that ovens are the limiting elements (the only machines packed full
