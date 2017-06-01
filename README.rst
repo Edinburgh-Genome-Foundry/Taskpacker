@@ -24,6 +24,7 @@ Main features
 --------------
 
 Taskpacker was built as a toy project to have an easily-extensible scheduling tool in Python.
+Only Python2 is supported right now (sorry for that, there is a complex bug with Numberjack in Python3)
 It is pretty simple and limited (the core code is ~200 lines) but comes with enough features to cover many cases:
 
 - Supports resources (typically, people or robots) and resource capacity

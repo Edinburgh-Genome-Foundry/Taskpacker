@@ -69,7 +69,7 @@ def get_resources_from_spreadsheet(spreadsheet_path, sheetname):
         for i, row in resources_df.iterrows()
     }
 
-def plot_schedule(tasks):
+def plot_schedule(tasks, legend=False):
     """ Plot the work units schedule in a gant-like way.
 
     This is quite basic and arbitrary and really meant for R&D purposes.
@@ -125,7 +125,8 @@ def plot_schedule(tasks):
     ax.set_yticks(np.arange(N) + 0.5)
     ax.set_ylim(-max(1, int(0.4 * N)), max(2, int(1.5 * N)))
     ax.set_yticklabels(all_resources)
-    ax.legend(ncol=3, fontsize=8)
+    if legend:
+        ax.legend(ncol=3, fontsize=8)
     ax.set_xlabel("Time")
     ax.set_xlim(0, 1.1 * max_end)
 
