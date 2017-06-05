@@ -37,9 +37,7 @@ It is pretty simple and limited (the core code is ~200 lines) but comes with eno
 Work in progress - contribute !
 ------------------------------------------
 
-Taskpacker is an open-source software originally written by `Zulko <https://github.com/Zulko>`_ to
-optimize the robot-operated DNA assembly operations at the Edinburgh Genome Foundry (EGF). at the `Edinburgh Genome Foundry
-<http://www.genomefoundry.io>`_. It is released and `released on Github <https://github.com/Edinburgh-Genome-Foundry/plateo>`_
+Taskpacker is an open-source software originally written to optimize the robot-operated DNA assembly operations at the Edinburgh Genome Foundry (EGF) . at the `Edinburgh Genome Foundry <http://www.genomefoundry.io>`_. It is `released on Github <https://github.com/Edinburgh-Genome-Foundry/plateo>`_
 under the MIT licence (¢ Edinburgh Genome Foundry), with no warranties: this is
 an experimental piece of software which we hope will be as useful for you as it was for us.
 And everyone is welcome to contribute !
