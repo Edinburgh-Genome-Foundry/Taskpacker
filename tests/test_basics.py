@@ -5,8 +5,8 @@ That's because the project is still experimental and "expected behavior" is
 a very fluid concept at this time.
 """
 
-from taskpacker import (get_process_from_spreadsheet,
-                        get_resources_from_spreadsheet,
+from taskpacker import (tasks_from_spreadsheet,
+                        resources_from_spreadsheet,
                         schedule_processes_series,
                         plot_tasks_dependency_graph,
                         plot_schedule, Task, Resource,
@@ -22,15 +22,15 @@ def test_dna_assembly_example(tmpdir):
 
     colors = (cm.Paired(0.21 * i % 1.0) for i in range(30))
 
-    resources = get_resources_from_spreadsheet(
+    resources = resources_from_spreadsheet(
         spreadsheet_path=spreadsheet_path, sheetname="resources")
 
     processes = [
-        get_process_from_spreadsheet(spreadsheet_path=spreadsheet_path,
-                                     sheetname="process",
-                                     resources_dict=resources,
-                                     tasks_color=next(colors),
-                                     task_name_prefix="WU%d_" % (i + 1))
+        tasks_from_spreadsheet(spreadsheet_path=spreadsheet_path,
+                               sheetname="process",
+                               resources_dict=resources,
+                               tasks_color=next(colors),
+                               task_name_prefix="WU%d_" % (i + 1))
         for i in range(5)
     ]
 
@@ -44,7 +44,7 @@ def test_dna_assembly_example(tmpdir):
     ax.figure.savefig("basic_example_work_unit.pdf", bbox_inches="tight")
 
     # PLOT THE OPTIMIZED SCHEDULE
-    fig, ax = plot_schedule([t for process in new_processes for t in process])
+    ax = plot_schedule([t for process in new_processes for t in process])
     ax.figure.set_size_inches((8, 5))
     ax.set_xlabel("time (min)")
     ax.figure.savefig(os.path.join(str(tmpdir),

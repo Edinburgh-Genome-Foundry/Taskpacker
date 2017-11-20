@@ -17,18 +17,20 @@ try:
 except ImportError:
     NX_AVAILABLE = False
 
+def tasks_from_spreadsheet(spreadsheet_path, resources_dict=None,
+                           sheetname='tasks', resources_sheetname='resources',
+                           tasks_color="blue",
+                           task_name_prefix="", sep=";"):
+    if resources_dict is None:
+        resources_dict = resources_from_spreadsheet(
+            spreadsheet_path, sheetname=resources_sheetname)
 
-def get_process_from_spreadsheet(spreadsheet_path, resources_dict,
-                                 sheetname=0, tasks_color="blue",
-                                 task_name_prefix=""):
 
     if spreadsheet_path.endswith("csv"):
-        process_df = pandas.read_csv(spreadsheet_path)
+        process_df = pandas.read_csv(spreadsheet_path, sep=sep)
     else:
         process_df = pandas.read_excel(spreadsheet_path,
-                                        sheetname=sheetname)
-
-    task_name_prefix = "WU1_"
+                                       sheetname=sheetname)
     process_tasks = {}
     tasks_list = []
     for i, row in process_df.iterrows():
@@ -40,22 +42,50 @@ def get_process_from_spreadsheet(spreadsheet_path, resources_dict,
         if follows == "nan":
             follows = ()
         else:
-            follows = [process_tasks[t] for t in follows.split(", ")]
+            follows = [process_tasks[t.strip()] for t in follows.split(",")]
+
+        if str(row.scheduled_resources) == "nan":
+            scheduled_resources = None
+        else:
+            scheduled_resources = {
+                resources_dict[r.split(":")[0].strip()]: int(r.split(":")[1])
+                for r in row.scheduled_resources.split(",")
+            }
         new_task = Task(
             name=task_name_prefix + row.task,
             resources=task_resources,
             duration=row.duration,
             follows=follows,
-            color=tasks_color,
+            color=(tasks_color if (str(row.color) == "nan")
+                               else row.color),
             max_wait=(None if (str(row.max_wait) == "nan")
-                           else int(row.max_wait))
+                           else int(row.max_wait)),
+            scheduled_start=(None if (str(row.scheduled_start) == "nan")
+                                  else int(row.scheduled_start)),
+            scheduled_resources=scheduled_resources
         )
         process_tasks[row.task] = new_task
         tasks_list.append(new_task)
 
     return tasks_list
 
-def get_resources_from_spreadsheet(spreadsheet_path, sheetname):
+def tasks_to_spreadsheet(tasks, filepath):
+    import pandas
+    df_tasks = pandas.DataFrame.from_records([
+        task.to_dict()
+        for task in tasks
+    ])
+    resources = set(resource for task in tasks for resource in task.resources)
+    df_resources = pandas.DataFrame.from_records([
+        resource.to_dict()
+        for resource in resources
+    ])
+
+    with pandas.ExcelWriter(filepath, engine='xlsxwriter') as writer:
+        df_tasks.to_excel(writer, sheet_name='tasks', index=False)
+        df_resources.to_excel(writer, sheet_name='resources', index=False)
+
+def resources_from_spreadsheet(spreadsheet_path, sheetname='resources'):
     if spreadsheet_path.endswith("csv"):
         resources_df = pandas.read_csv(spreadsheet_path)
     else:
@@ -69,7 +99,7 @@ def get_resources_from_spreadsheet(spreadsheet_path, sheetname):
         for i, row in resources_df.iterrows()
     }
 
-def plot_schedule(tasks, legend=False):
+def plot_schedule(tasks, legend=False, ax=None, edgewidth=1.0):
     """ Plot the work units schedule in a gant-like way.
 
     This is quite basic and arbitrary and really meant for R&D purposes.
@@ -83,13 +113,13 @@ def plot_schedule(tasks, legend=False):
         for task in tasks
         for resource in task.resources
     ])), key=lambda e: e.full_name)[::-1]
-
-    fig, ax = plt.subplots(1, figsize=(15, 6))
+    if ax is None:
+        fig, ax = plt.subplots(1, figsize=(15, 6))
     max_end = 0
     for task in tasks:
         start = task.scheduled_start
         end = task.scheduled_end
-        resources = task.scheduled_resource
+        resources = task.scheduled_resources
         max_end = max(end, max_end)
         margin = 0.2
 
@@ -99,7 +129,6 @@ def plot_schedule(tasks, legend=False):
             else:
                 slots = resource.capacity
             return (1.0 - 2 * margin) / slots
-
         for r in task.resources:
             y = (
                 all_resources.index(r) +
@@ -112,25 +141,26 @@ def plot_schedule(tasks, legend=False):
                     end - start,          # width
                     height(r),          # height
                     facecolor=task.color,
-                    edgecolor='k'
+                    edgecolor='k',
+                    linewidth=edgewidth
                 )
             )
 
     strips_colors = itt.cycle([(1, 1, 1), (1, 0.92, 0.92)])
-    for i, color in zip(range(-1, len(all_resources) + 1), strips_colors):
+    for i, color in zip(range(-1, len(all_resources)), strips_colors):
         ax.fill_between(
-            [0, 1.1 * max_end], [i, i], y2=[i + 1, i + 1], color=color)
+            [0, 10 * max_end], [i, i], y2=[i + 1, i + 1], color=color)
 
     N = len(all_resources)
     ax.set_yticks(np.arange(N) + 0.5)
-    ax.set_ylim(-max(1, int(0.4 * N)), max(2, int(1.5 * N)))
-    ax.set_yticklabels(all_resources)
+    ax.set_ylim(-max(1, int(0.2 * N)), max(2, int(1.2 * N)))
+    ax.set_yticklabels([rsrc.full_name for rsrc in all_resources])
     if legend:
         ax.legend(ncol=3, fontsize=8)
     ax.set_xlabel("Time")
     ax.set_xlim(0, 1.1 * max_end)
 
-    return fig, ax
+    return ax
 
 
 
