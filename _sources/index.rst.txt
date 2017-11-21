@@ -39,7 +39,7 @@ Work in progress - contribute !
 
 Taskpacker is an open-source software originally written by `Zulko <https://github.com/Zulko>`_ to
 optimize the robot-operated DNA assembly operations at the Edinburgh Genome Foundry (EGF). at the `Edinburgh Genome Foundry
-<http://www.genomefoundry.io>`_. It is released and `released on Github <https://github.com/Edinburgh-Genome-Foundry/plateo>`_
+<http://www.genomefoundry.io>`_. It is released and `released on Github <https://github.com/Edinburgh-Genome-Foundry/Taskpacker>`_
 under the MIT licence (¢ Edinburgh Genome Foundry), with no warranties: this is
 an experimental piece of software which we hope will be as useful for you as it was for us.
 And everyone is welcome to contribute !
@@ -100,7 +100,7 @@ to finish as early as possible:
 
 Assume that you have a process consisting in several tasks, each task depending
 on some resources to be available, and possibly on other tasks. Such process can
-be summarized in a spreadsheet like this one `this file <>`_, which is loaded in
+be summarized in a spreadsheet like this one `this file <https://github.com/Edinburgh-Genome-Foundry/Taskpacker/raw/master/examples/examples_data/dna_assembly.xls>`_, which is loaded in
 Taskpacker as follows:
 
 .. code:: python

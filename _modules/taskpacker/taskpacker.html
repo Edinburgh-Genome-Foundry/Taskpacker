@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
   
+  
+  
 
   
 
@@ -47,6 +49,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -90,7 +93,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">Taskpacker Documentation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
@@ -108,8 +114,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Plateo</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Plateo</a>
+        
       </nav>
 
 
@@ -122,19 +130,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
-    <li>taskpacker.taskpacker</li>
+        
+      <li>taskpacker.taskpacker</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -146,7 +171,7 @@
 <span class="kn">import</span> <span class="nn">Numberjack</span> <span class="k">as</span> <span class="nn">nj</span>
 <span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="nn">itt</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">copy</span>
-
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
 
 <div class="viewcode-block" id="Task"><a class="viewcode-back" href="../../ref.html#taskpacker.taskpacker.Task">[docs]</a><span class="k">class</span> <span class="nc">Task</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; Tasks are the steps of a work unit, performed using specific resources.</span>
@@ -163,17 +188,20 @@
 <span class="sd">    duration</span>
 <span class="sd">      Duration of the task (the choice of the unit is left to the user.</span>
 
+<span class="sd">    scheduled_resource</span>
+<span class="sd">      Either None or a dict {resource: slot_used}</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">resources</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">follows</span><span class="o">=</span><span class="p">(),</span> <span class="n">max_wait</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">scheduled_start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scheduled_resource</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">scheduled_start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scheduled_resources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">due_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">resources</span> <span class="o">=</span> <span class="n">resources</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="n">duration</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scheduled_start</span> <span class="o">=</span> <span class="n">scheduled_start</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scheduled_resource</span> <span class="o">=</span> <span class="n">scheduled_resource</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scheduled_resources</span> <span class="o">=</span> <span class="n">scheduled_resources</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">follows</span> <span class="o">=</span> <span class="n">follows</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_wait</span> <span class="o">=</span> <span class="n">max_wait</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span>
@@ -193,7 +221,33 @@
         <span class="k">return</span> <span class="s2">&quot;Task(</span><span class="si">%(name)s</span><span class="s2">, </span><span class="si">%(duration)s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span>
 
     <span class="k">def</span> <span class="nf">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">color_to_html</span><span class="p">(</span><span class="n">color</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">color</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;#</span><span class="si">%02x%02x%02x</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="mi">255</span><span class="o">*</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">color</span><span class="p">[:</span><span class="mi">3</span><span class="p">]])</span>
+        <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">([</span>
+            <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">v</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span>
+                <span class="p">(</span><span class="s1">&#39;task&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+                <span class="p">(</span><span class="s1">&#39;resources&#39;</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">resources</span><span class="p">])),</span>
+                <span class="p">(</span><span class="s1">&#39;duration&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">),</span>
+                <span class="p">(</span><span class="s1">&#39;follows&#39;</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">task</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">follows</span><span class="p">])),</span>
+                <span class="p">(</span><span class="s1">&#39;max_wait&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_wait</span><span class="p">),</span>
+                <span class="p">(</span><span class="s1">&#39;scheduled_start&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduled_start</span><span class="p">),</span>
+                <span class="p">(</span><span class="s1">&#39;scheduled_resources&#39;</span><span class="p">,</span>
+                    <span class="kc">None</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduled_resources</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+                        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">kv</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">kv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduled_resources</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                    <span class="p">])),</span>
+                <span class="p">(</span><span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span>
+                          <span class="n">color_to_html</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">))</span>
+            <span class="p">]</span>
+
+        <span class="p">])</span></div>
 
 
 <div class="viewcode-block" id="Resource"><a class="viewcode-back" href="../../ref.html#taskpacker.taskpacker.Resource">[docs]</a><span class="k">class</span> <span class="nc">Resource</span><span class="p">:</span>
@@ -213,7 +267,17 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 
     <span class="k">def</span> <span class="nf">hash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">([</span>
+            <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">v</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span>
+                <span class="p">(</span><span class="s1">&#39;resource_name&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+                <span class="p">(</span><span class="s1">&#39;full_name&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_name</span><span class="p">),</span>
+                <span class="p">(</span><span class="s1">&#39;capacity&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">])</span></div>
 
 
 <div class="viewcode-block" id="numberjack_scheduler"><a class="viewcode-back" href="../../ref.html#taskpacker.taskpacker.numberjack_scheduler">[docs]</a><span class="k">def</span> <span class="nf">numberjack_scheduler</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">upper_bound</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
@@ -263,6 +327,17 @@
 
     <span class="c1"># Create Numberjack variables to represent the tasks</span>
     <span class="c1"># ( starting times and resource instance that they use).</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">task</span> <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">task</span><span class="o">.</span><span class="n">scheduled_start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span>
+
+        <span class="p">((</span><span class="n">task</span><span class="o">.</span><span class="n">scheduled_start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span>
+        <span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">scheduled_start</span> <span class="o">&lt;</span> <span class="n">upper_bound</span><span class="p">))</span> <span class="ow">or</span>
+
+        <span class="p">((</span><span class="n">task</span><span class="o">.</span><span class="n">scheduled_end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span>
+         <span class="p">(</span><span class="n">lower_bound</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span>
+         <span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">scheduled_end</span> <span class="o">&gt;</span> <span class="n">lower_bound</span><span class="p">)))</span>
+    <span class="p">]</span>
     <span class="n">nj_tasks</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
 
@@ -270,7 +345,6 @@
             <span class="k">if</span> <span class="n">lower_bound</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">new_nj_task</span> <span class="o">=</span> <span class="n">nj</span><span class="o">.</span><span class="n">Task</span><span class="p">(</span><span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-
                 <span class="n">new_nj_task</span> <span class="o">=</span> <span class="n">nj</span><span class="o">.</span><span class="n">Task</span><span class="p">(</span><span class="n">upper_bound</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">new_nj_task</span> <span class="o">=</span> <span class="n">nj</span><span class="o">.</span><span class="n">Task</span><span class="p">(</span>
@@ -287,8 +361,8 @@
                 <span class="c1"># If a task is already scheduled to some slot, its slot is</span>
                 <span class="c1"># one-choice variable. Otherwise it is a 1..nSlots variable</span>
                 <span class="n">nj</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">resource</span><span class="o">.</span><span class="n">capacity</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">scheduled_resource</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span>
-                <span class="n">nj</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="n">task</span><span class="o">.</span><span class="n">scheduled_resource</span><span class="p">[</span><span class="n">resource</span><span class="p">]])</span>
+                <span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">scheduled_resources</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span>
+                <span class="n">nj</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="n">task</span><span class="o">.</span><span class="n">scheduled_resources</span><span class="p">[</span><span class="n">resource</span><span class="p">]])</span>
             <span class="p">)</span>
             <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">task</span><span class="o">.</span><span class="n">resources</span>
         <span class="p">}</span>
@@ -322,17 +396,18 @@
                     <span class="p">(</span><span class="n">resource</span> <span class="ow">in</span> <span class="n">other_task</span><span class="o">.</span><span class="n">resources</span><span class="p">))</span>
             <span class="p">]</span>
             <span class="k">for</span> <span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">other_task</span><span class="p">)</span> <span class="ow">in</span> <span class="n">tasks_pairs_sharing_resource</span><span class="p">:</span>
-                <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">nj</span><span class="o">.</span><span class="n">Or</span><span class="p">([</span>
-                    <span class="n">nj</span><span class="o">.</span><span class="n">Or</span><span class="p">([</span>
-                        <span class="n">nj_tasks</span><span class="p">[</span><span class="n">task</span><span class="p">]</span> <span class="o">+</span> <span class="n">task</span><span class="o">.</span><span class="n">duration</span> <span class="o">&lt;=</span> <span class="n">nj_tasks</span><span class="p">[</span><span class="n">other_task</span><span class="p">],</span>
-                        <span class="n">nj_tasks</span><span class="p">[</span><span class="n">other_task</span><span class="p">]</span> <span class="o">+</span> <span class="n">other_task</span><span class="o">.</span><span class="n">duration</span> <span class="o">&lt;=</span>
-                        <span class="n">nj_tasks</span><span class="p">[</span><span class="n">task</span><span class="p">]</span>
-                    <span class="p">]),</span>
-                    <span class="n">nj</span><span class="o">.</span><span class="n">AllDiff</span><span class="p">([</span>
-                        <span class="n">nj_taskresources</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="n">resource</span><span class="p">],</span>
-                        <span class="n">nj_taskresources</span><span class="p">[</span><span class="n">other_task</span><span class="p">][</span><span class="n">resource</span><span class="p">]</span>
-                    <span class="p">])</span>
-                <span class="p">]))</span>
+
+                <span class="n">different_times</span> <span class="o">=</span> <span class="n">nj</span><span class="o">.</span><span class="n">Or</span><span class="p">([</span>
+                    <span class="n">nj_tasks</span><span class="p">[</span><span class="n">task</span><span class="p">]</span> <span class="o">+</span> <span class="n">task</span><span class="o">.</span><span class="n">duration</span> <span class="o">&lt;=</span> <span class="n">nj_tasks</span><span class="p">[</span><span class="n">other_task</span><span class="p">],</span>
+                    <span class="n">nj_tasks</span><span class="p">[</span><span class="n">other_task</span><span class="p">]</span> <span class="o">+</span> <span class="n">other_task</span><span class="o">.</span><span class="n">duration</span> <span class="o">&lt;</span> <span class="n">nj_tasks</span><span class="p">[</span><span class="n">task</span><span class="p">]</span>
+                <span class="p">])</span>
+                <span class="n">different_resources</span> <span class="o">=</span> <span class="n">nj</span><span class="o">.</span><span class="n">AllDiff</span><span class="p">([</span>
+                    <span class="n">nj_taskresources</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="n">resource</span><span class="p">],</span>
+                    <span class="n">nj_taskresources</span><span class="p">[</span><span class="n">other_task</span><span class="p">][</span><span class="n">resource</span><span class="p">]</span>
+                <span class="p">])</span>
+                <span class="n">different_resources</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">different_resources</span><span class="o">.</span><span class="n">ub</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">nj</span><span class="o">.</span><span class="n">Or</span><span class="p">([</span><span class="n">different_times</span><span class="p">,</span> <span class="n">different_resources</span><span class="p">]))</span>
 
     <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">([</span>
         <span class="p">(</span><span class="n">nj_tasks</span><span class="p">[</span><span class="n">task</span><span class="p">]</span> <span class="o">+</span> <span class="n">task</span><span class="o">.</span><span class="n">duration</span> <span class="o">&lt;=</span> <span class="n">nj_tasks</span><span class="p">[</span><span class="n">next_task</span><span class="p">])</span>
@@ -391,14 +466,17 @@
         <span class="n">resources</span> <span class="o">=</span> <span class="p">{</span><span class="n">resource</span><span class="p">:</span> <span class="n">nj_taskresources</span><span class="p">[</span><span class="n">task</span><span class="p">][</span><span class="n">resource</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
                      <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">task</span><span class="o">.</span><span class="n">resources</span><span class="p">}</span>
         <span class="n">task</span><span class="o">.</span><span class="n">scheduled_start</span> <span class="o">=</span> <span class="n">start</span>
-        <span class="n">task</span><span class="o">.</span><span class="n">scheduled_resource</span> <span class="o">=</span> <span class="n">resources</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">scheduled_resources</span> <span class="o">=</span> <span class="n">resources</span>
+
+
 
     <span class="k">return</span> <span class="n">tasks</span></div>
 
 
 <span class="k">def</span> <span class="nf">schedule_processes_series</span><span class="p">(</span><span class="n">processes</span><span class="p">,</span> <span class="n">est_process_duration</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
                               <span class="n">time_limit</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">verbose_solver</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                              <span class="n">scheduled_tasks</span><span class="o">=</span><span class="p">(),</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+                              <span class="n">time_limit_step</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scheduled_tasks</span><span class="o">=</span><span class="p">(),</span>
+                              <span class="n">n_trials</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">lower_bound</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">process_duration</span> <span class="o">=</span> <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">est_process_duration</span>
 
@@ -419,25 +497,35 @@
                    <span class="n">upper_bound</span><span class="p">,</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">time_limit</span><span class="p">,</span>
                    <span class="n">randomization</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">new_processes</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">processes</span><span class="p">)),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;#Process&quot;</span><span class="p">):</span>
+    <span class="n">iterator</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">processes</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">iterator</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">iter_bar</span><span class="p">(</span><span class="n">process</span><span class="o">=</span><span class="n">iterator</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">iterator</span><span class="p">:</span>
+        <span class="n">new_tasks</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
+        <span class="n">new_processes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_tasks</span><span class="p">)</span>
+        <span class="n">considered_tasks</span> <span class="o">+=</span> <span class="n">new_tasks</span>
         <span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_trials</span><span class="p">):</span>
-            <span class="n">new_tasks</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
-            <span class="n">new_processes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_tasks</span><span class="p">)</span>
-            <span class="n">considered_tasks</span> <span class="o">+=</span> <span class="n">new_tasks</span>
+
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">schedule_tasks</span><span class="p">(</span><span class="n">considered_tasks</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">,</span> <span class="n">lower_bound</span><span class="p">,</span>
-                               <span class="n">time_limit</span><span class="p">,</span> <span class="n">randomization</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                               <span class="n">time_limit</span> <span class="o">+</span> <span class="n">time_limit_step</span> <span class="o">*</span> <span class="n">trial</span><span class="p">,</span>
+                               <span class="n">randomization</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
                 <span class="n">lower_bound</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">scheduled_start</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">new_tasks</span><span class="p">])</span>
                 <span class="n">latest</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">t</span><span class="o">.</span><span class="n">scheduled_end</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">new_tasks</span><span class="p">])</span>
                 <span class="n">process_duration</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">process_duration</span><span class="p">,</span> <span class="n">latest</span> <span class="o">-</span> <span class="n">lower_bound</span><span class="p">)</span>
-                <span class="n">upper_bound</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">latest</span>
+                <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">latest</span> <span class="o">+</span> <span class="n">est_process_duration</span>
                 <span class="k">break</span>
-            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                <span class="n">upper_bound</span> <span class="o">*=</span> <span class="mi">2</span>
+            <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">([(</span><span class="n">t</span><span class="o">.</span><span class="n">scheduled_resources</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">considered_tasks</span><span class="p">])</span>
 
     <span class="k">return</span> <span class="n">new_processes</span>
 </pre></div>
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
@@ -472,7 +560,8 @@
             VERSION:'0.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>

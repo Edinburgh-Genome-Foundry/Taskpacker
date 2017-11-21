@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
   
+  
+  
 
   
 
@@ -47,6 +49,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -90,7 +93,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Taskpacker Documentation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
@@ -108,8 +114,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">Plateo</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Plateo</a>
+        
       </nav>
 
 
@@ -118,23 +126,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="#">Docs</a> &raquo;</li>
-      
-    <li>Taskpacker Documentation</li>
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Taskpacker Documentation</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -167,7 +192,7 @@ latest X minutes after their <em>parents</em> are completed)</li>
 <div class="section" id="work-in-progress-contribute">
 <h2>Work in progress - contribute !<a class="headerlink" href="#work-in-progress-contribute" title="Permalink to this headline">¶</a></h2>
 <p>Taskpacker is an open-source software originally written by <a class="reference external" href="https://github.com/Zulko">Zulko</a> to
-optimize the robot-operated DNA assembly operations at the Edinburgh Genome Foundry (EGF). at the <a class="reference external" href="http://www.genomefoundry.io">Edinburgh Genome Foundry</a>. It is released and <a class="reference external" href="https://github.com/Edinburgh-Genome-Foundry/plateo">released on Github</a>
+optimize the robot-operated DNA assembly operations at the Edinburgh Genome Foundry (EGF). at the <a class="reference external" href="http://www.genomefoundry.io">Edinburgh Genome Foundry</a>. It is released and <a class="reference external" href="https://github.com/Edinburgh-Genome-Foundry/Taskpacker">released on Github</a>
 under the MIT licence (¢ Edinburgh Genome Foundry), with no warranties: this is
 an experimental piece of software which we hope will be as useful for you as it was for us.
 And everyone is welcome to contribute !</p>
@@ -223,7 +248,7 @@ to finish as early as possible:</p>
 <p>## Modeling tasks and reources with spreadsheets</p>
 <p>Assume that you have a process consisting in several tasks, each task depending
 on some resources to be available, and possibly on other tasks. Such process can
-be summarized in a spreadsheet like this one <a href="#id2"><span class="problematic" id="id3">`this file &lt;&gt;`_</span></a>, which is loaded in
+be summarized in a spreadsheet like this one <a class="reference external" href="https://github.com/Edinburgh-Genome-Foundry/Taskpacker/raw/master/examples/examples_data/dna_assembly.xls">this file</a>, which is loaded in
 Taskpacker as follows:</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">taskpacker</span> <span class="k">import</span> <span class="p">(</span><span class="n">get_resources_from_spreadsheet</span><span class="p">,</span>
                         <span class="n">get_process_from_spreadsheet</span><span class="p">)</span>
@@ -324,12 +349,15 @@ allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30p
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ref.html" class="btn btn-neutral float-right" title="Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ref.html" class="btn btn-neutral float-right" title="Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -364,7 +392,8 @@ allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30p
             VERSION:'0.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

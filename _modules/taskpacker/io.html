@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
   
+  
+  
 
   
 
@@ -47,6 +49,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -90,7 +93,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">Taskpacker Documentation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
@@ -108,8 +114,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../index.html">Plateo</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Plateo</a>
+        
       </nav>
 
 
@@ -122,19 +130,36 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../../index.html">Docs</a> &raquo;</li>
-      
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-      
-    <li>taskpacker.io</li>
+        
+      <li>taskpacker.io</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -160,18 +185,20 @@
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">NX_AVAILABLE</span> <span class="o">=</span> <span class="kc">False</span>
 
+<span class="k">def</span> <span class="nf">tasks_from_spreadsheet</span><span class="p">(</span><span class="n">spreadsheet_path</span><span class="p">,</span> <span class="n">resources_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                           <span class="n">sheetname</span><span class="o">=</span><span class="s1">&#39;tasks&#39;</span><span class="p">,</span> <span class="n">resources_sheetname</span><span class="o">=</span><span class="s1">&#39;resources&#39;</span><span class="p">,</span>
+                           <span class="n">tasks_color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+                           <span class="n">task_name_prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">resources_dict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">resources_dict</span> <span class="o">=</span> <span class="n">resources_from_spreadsheet</span><span class="p">(</span>
+            <span class="n">spreadsheet_path</span><span class="p">,</span> <span class="n">sheetname</span><span class="o">=</span><span class="n">resources_sheetname</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">get_process_from_spreadsheet</span><span class="p">(</span><span class="n">spreadsheet_path</span><span class="p">,</span> <span class="n">resources_dict</span><span class="p">,</span>
-                                 <span class="n">sheetname</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">tasks_color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
-                                 <span class="n">task_name_prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="n">spreadsheet_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;csv&quot;</span><span class="p">):</span>
-        <span class="n">process_df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">spreadsheet_path</span><span class="p">)</span>
+        <span class="n">process_df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">spreadsheet_path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">process_df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">spreadsheet_path</span><span class="p">,</span>
-                                        <span class="n">sheetname</span><span class="o">=</span><span class="n">sheetname</span><span class="p">)</span>
-
-    <span class="n">task_name_prefix</span> <span class="o">=</span> <span class="s2">&quot;WU1_&quot;</span>
+                                       <span class="n">sheetname</span><span class="o">=</span><span class="n">sheetname</span><span class="p">)</span>
     <span class="n">process_tasks</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">tasks_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">process_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
@@ -183,22 +210,50 @@
         <span class="k">if</span> <span class="n">follows</span> <span class="o">==</span> <span class="s2">&quot;nan&quot;</span><span class="p">:</span>
             <span class="n">follows</span> <span class="o">=</span> <span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">follows</span> <span class="o">=</span> <span class="p">[</span><span class="n">process_tasks</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">follows</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)]</span>
+            <span class="n">follows</span> <span class="o">=</span> <span class="p">[</span><span class="n">process_tasks</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">follows</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
+
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">scheduled_resources</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;nan&quot;</span><span class="p">:</span>
+            <span class="n">scheduled_resources</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scheduled_resources</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">resources_dict</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()]:</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">row</span><span class="o">.</span><span class="n">scheduled_resources</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
         <span class="n">new_task</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span>
             <span class="n">name</span><span class="o">=</span><span class="n">task_name_prefix</span> <span class="o">+</span> <span class="n">row</span><span class="o">.</span><span class="n">task</span><span class="p">,</span>
             <span class="n">resources</span><span class="o">=</span><span class="n">task_resources</span><span class="p">,</span>
             <span class="n">duration</span><span class="o">=</span><span class="n">row</span><span class="o">.</span><span class="n">duration</span><span class="p">,</span>
             <span class="n">follows</span><span class="o">=</span><span class="n">follows</span><span class="p">,</span>
-            <span class="n">color</span><span class="o">=</span><span class="n">tasks_color</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="n">tasks_color</span> <span class="k">if</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">color</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+                               <span class="k">else</span> <span class="n">row</span><span class="o">.</span><span class="n">color</span><span class="p">),</span>
             <span class="n">max_wait</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span> <span class="k">if</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">max_wait</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;nan&quot;</span><span class="p">)</span>
-                           <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">max_wait</span><span class="p">))</span>
+                           <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">max_wait</span><span class="p">)),</span>
+            <span class="n">scheduled_start</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span> <span class="k">if</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">scheduled_start</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+                                  <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">scheduled_start</span><span class="p">)),</span>
+            <span class="n">scheduled_resources</span><span class="o">=</span><span class="n">scheduled_resources</span>
         <span class="p">)</span>
         <span class="n">process_tasks</span><span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">task</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_task</span>
         <span class="n">tasks_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_task</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">tasks_list</span>
 
-<span class="k">def</span> <span class="nf">get_resources_from_spreadsheet</span><span class="p">(</span><span class="n">spreadsheet_path</span><span class="p">,</span> <span class="n">sheetname</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">tasks_to_spreadsheet</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">pandas</span>
+    <span class="n">df_tasks</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">([</span>
+        <span class="n">task</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span>
+    <span class="p">])</span>
+    <span class="n">resources</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">resource</span> <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span> <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">task</span><span class="o">.</span><span class="n">resources</span><span class="p">)</span>
+    <span class="n">df_resources</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">([</span>
+        <span class="n">resource</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">resources</span>
+    <span class="p">])</span>
+
+    <span class="k">with</span> <span class="n">pandas</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;xlsxwriter&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">writer</span><span class="p">:</span>
+        <span class="n">df_tasks</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;tasks&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">df_resources</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s1">&#39;resources&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">resources_from_spreadsheet</span><span class="p">(</span><span class="n">spreadsheet_path</span><span class="p">,</span> <span class="n">sheetname</span><span class="o">=</span><span class="s1">&#39;resources&#39;</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">spreadsheet_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;csv&quot;</span><span class="p">):</span>
         <span class="n">resources_df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">spreadsheet_path</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -212,7 +267,7 @@
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">resources_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()</span>
     <span class="p">}</span>
 
-<div class="viewcode-block" id="plot_schedule"><a class="viewcode-back" href="../../ref.html#taskpacker.io.plot_schedule">[docs]</a><span class="k">def</span> <span class="nf">plot_schedule</span><span class="p">(</span><span class="n">tasks</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_schedule"><a class="viewcode-back" href="../../ref.html#taskpacker.io.plot_schedule">[docs]</a><span class="k">def</span> <span class="nf">plot_schedule</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">edgewidth</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Plot the work units schedule in a gant-like way.</span>
 
 <span class="sd">    This is quite basic and arbitrary and really meant for R&amp;D purposes.</span>
@@ -226,13 +281,13 @@
         <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span>
         <span class="k">for</span> <span class="n">resource</span> <span class="ow">in</span> <span class="n">task</span><span class="o">.</span><span class="n">resources</span>
     <span class="p">])),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">full_name</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
     <span class="n">max_end</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">scheduled_start</span>
         <span class="n">end</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">scheduled_end</span>
-        <span class="n">resources</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">scheduled_resource</span>
+        <span class="n">resources</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">scheduled_resources</span>
         <span class="n">max_end</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">max_end</span><span class="p">)</span>
         <span class="n">margin</span> <span class="o">=</span> <span class="mf">0.2</span>
 
@@ -242,7 +297,6 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">slots</span> <span class="o">=</span> <span class="n">resource</span><span class="o">.</span><span class="n">capacity</span>
             <span class="k">return</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">margin</span><span class="p">)</span> <span class="o">/</span> <span class="n">slots</span>
-
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">task</span><span class="o">.</span><span class="n">resources</span><span class="p">:</span>
             <span class="n">y</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="n">all_resources</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">+</span>
@@ -255,24 +309,26 @@
                     <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">,</span>          <span class="c1"># width</span>
                     <span class="n">height</span><span class="p">(</span><span class="n">r</span><span class="p">),</span>          <span class="c1"># height</span>
                     <span class="n">facecolor</span><span class="o">=</span><span class="n">task</span><span class="o">.</span><span class="n">color</span><span class="p">,</span>
-                    <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span>
+                    <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+                    <span class="n">linewidth</span><span class="o">=</span><span class="n">edgewidth</span>
                 <span class="p">)</span>
             <span class="p">)</span>
 
     <span class="n">strips_colors</span> <span class="o">=</span> <span class="n">itt</span><span class="o">.</span><span class="n">cycle</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">)])</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_resources</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">strips_colors</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_resources</span><span class="p">)),</span> <span class="n">strips_colors</span><span class="p">):</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
-            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span> <span class="o">*</span> <span class="n">max_end</span><span class="p">],</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y2</span><span class="o">=</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">max_end</span><span class="p">],</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y2</span><span class="o">=</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
 
     <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_resources</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.4</span> <span class="o">*</span> <span class="n">N</span><span class="p">)),</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">N</span><span class="p">)))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">all_resources</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.2</span> <span class="o">*</span> <span class="n">N</span><span class="p">)),</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mf">1.2</span> <span class="o">*</span> <span class="n">N</span><span class="p">)))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="n">rsrc</span><span class="o">.</span><span class="n">full_name</span> <span class="k">for</span> <span class="n">rsrc</span> <span class="ow">in</span> <span class="n">all_resources</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">legend</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span> <span class="o">*</span> <span class="n">max_end</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span></div>
+    <span class="k">return</span> <span class="n">ax</span></div>
 
 
 
@@ -412,6 +468,9 @@
 </pre></div>
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -445,7 +504,8 @@
             VERSION:'0.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../../_static/jquery.js"></script>
