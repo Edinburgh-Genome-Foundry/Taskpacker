@@ -4,16 +4,16 @@ And I mean reeeaaaally basic, I'm just making sure the main example runs here.
 That's because the project is still experimental and "expected behavior" is
 a very fluid concept at this time.
 """
-
+import os
+import matplotlib
+matplotlib.use('Agg')
 from taskpacker import (tasks_from_spreadsheet,
                         resources_from_spreadsheet,
                         schedule_processes_series,
                         plot_tasks_dependency_graph,
                         plot_schedule, Task, Resource,
                         numberjack_scheduler)
-import os
-import matplotlib
-matplotlib.use('Agg')
+
 import matplotlib.cm as cm
 
 
