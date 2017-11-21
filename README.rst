@@ -53,6 +53,9 @@ You can also install it directly from the Python Package Index with this command
 
     sudo pip taskpacker install
 
+It is probable that you will need some dependencies to build Numberjack. On Ubuntu you can install these with: ::
+
+    sudo apt install libxml2-dev swig
 
 Basic Example
 --------------
