@@ -14,4 +14,4 @@ setup(
     license='MIT',
     keywords="",
     packages=find_packages(exclude='docs'),
-    install_requires=['Numberjack', 'numpy', 'tqdm', 'pandas'])
+    install_requires=['Numberjack', 'numpy', 'tqdm', 'pandas', 'matplotlib'])
