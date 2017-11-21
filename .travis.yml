@@ -6,7 +6,7 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install libxml2-dev swig
 install:
-  - pip install pytest
+  - pip install pytest networkx
   - pip install -e .
 # command to run tests
 script:
