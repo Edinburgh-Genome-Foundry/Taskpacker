@@ -12,6 +12,8 @@ from taskpacker import (tasks_from_spreadsheet,
                         plot_schedule, Task, Resource,
                         numberjack_scheduler)
 import os
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.cm as cm
 
 
