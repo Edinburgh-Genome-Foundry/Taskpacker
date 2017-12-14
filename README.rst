@@ -1,10 +1,9 @@
-Taskpacker
-===========
+.. raw:: html
 
-.. image:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/Taskpacker/master/docs/_static/images/title.png
-   :alt: [logo]
-   :align: center
-   :width: 600px
+    <p align="center">
+    <img alt="Taskpacker Logo" title="Taskpacker Logo" src="https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/Taskpacker/master/docs/_static/images/title.png" width="600">
+    <br /><br />
+    </p>
 
 Taskpacker is a generic schedule optimization and visualization library for Python.
 For instance, below is the optimized schedule of 20 batches of 96 DNA assemblies,
