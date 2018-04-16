@@ -97,7 +97,8 @@ to finish as early as possible:
     ax.figure.set_size_inches(7, 3)
     ax.figure.savefig("alice_and_bod.png", bbox_inches="tight")
 
-## Modeling tasks and reources with spreadsheets
+Modeling tasks and reources with spreadsheets
+---------------------------------------------
 
 Assume that you have a process consisting in several tasks, each task depending
 on some resources to be available, and possibly on other tasks. Such process can
@@ -186,7 +187,7 @@ and asks Taskpacker to stack them one by one as compactly as possible:
  :align: center
  :width: 600px
 
-Note that it is also possible to add scheduled breaks so that your Igor can rest:
+Note that it is also possible to add scheduled breaks (here we make them appear as white rectangles) so that your Igor can rest:
 
 .. code:: python
 
