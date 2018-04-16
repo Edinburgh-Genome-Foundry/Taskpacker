@@ -6,8 +6,7 @@
     </p>
 
 Taskpacker is a generic schedule optimization and visualization library for Python.
-For instance, below is the optimized schedule of 20 batches of 96 DNA assemblies,
-assuming a robotic foundry running 24/7:
+For instance, below is an optimized schedule where 20 processes (each comprised of several tasks and represented by one color) are ran 24/7 in a factory:
 
 .. image:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/Taskpacker/master/examples/dna_assembly.png
  :alt: [dna_assembly.png]
