@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,6 +11,11 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/main.css" type="text/css" />
+
+  
   
     <link rel="shortcut icon" href="_static/favicon.png"/>
   
@@ -19,52 +23,42 @@
   
 
   
-
-  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="_static/css/main.css" type="text/css" />
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Plateo 0.1.0 documentation" href="index.html"/>
-        <link rel="prev" title="Taskpacker Documentation" href="index.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Main features" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
-            <a href="index.html" class="icon icon-home"> Plateo
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Plateo
           
 
           
             
-            <img src="_static/html_logo.png" class="logo" />
+            <img src="_static/html_logo.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -89,6 +83,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -97,7 +92,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">Taskpacker Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Main features</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Reference</span></p>
 <ul class="current">
@@ -111,13 +106,14 @@
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Plateo</a>
@@ -125,9 +121,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -148,7 +145,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Reference</li>
     
@@ -173,138 +170,140 @@
 <h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-taskpacker.taskpacker">
 <span id="core-functions"></span><h2>Core functions<a class="headerlink" href="#module-taskpacker.taskpacker" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
+<dl class="py class">
 <dt id="taskpacker.taskpacker.Resource">
-<em class="property">class </em><code class="descclassname">taskpacker.taskpacker.</code><code class="descname">Resource</code><span class="sig-paren">(</span><em>name</em>, <em>full_name=None</em>, <em>capacity=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/taskpacker/taskpacker.html#Resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#taskpacker.taskpacker.Resource" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resources are machines/humans that can perform tasks</p>
+<em class="property">class </em><code class="sig-prename descclassname">taskpacker.taskpacker.</code><code class="sig-name descname">Resource</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">full_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">capacity</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/taskpacker/taskpacker.html#Resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#taskpacker.taskpacker.Resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resources are machines/humans that can perform tasks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name</strong></dt><dd><p>Name of the resource.</p>
+</dd>
+<dt><strong>full_name</strong></dt><dd><p>Full name of the resource.</p>
+</dd>
+<dt><strong>capacity</strong></dt><dd><p>How many jobs a resource can do at the same time.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="taskpacker.taskpacker.Task">
-<em class="property">class </em><code class="descclassname">taskpacker.taskpacker.</code><code class="descname">Task</code><span class="sig-paren">(</span><em>name</em>, <em>resources</em>, <em>duration</em>, <em>follows=()</em>, <em>max_wait=None</em>, <em>scheduled_start=None</em>, <em>scheduled_resources=None</em>, <em>priority=1</em>, <em>due_time=None</em>, <em>color='blue'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/taskpacker/taskpacker.html#Task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#taskpacker.taskpacker.Task" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tasks are the steps of a work unit, performed using specific resources.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong></p>
-<blockquote>
-<div><p>Name of the task (appears when printed and plotted)</p>
-</div></blockquote>
-<p><strong>resources</strong></p>
-<blockquote>
-<div><p>list of Resource objects specifying the resources occupied by the task</p>
-</div></blockquote>
-<p><strong>duration</strong></p>
-<blockquote>
-<div><p>Duration of the task (the choice of the unit is left to the user.</p>
-</div></blockquote>
-<p><strong>scheduled_resource</strong></p>
-<blockquote class="last">
-<div><p>Either None or a dict {resource: slot_used}</p>
-</div></blockquote>
-</td>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 48%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>hash</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>to_dict</strong></p></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Attributes</p>
-<p class="rubric">Methods</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py class">
+<dt id="taskpacker.taskpacker.Task">
+<em class="property">class </em><code class="sig-prename descclassname">taskpacker.taskpacker.</code><code class="sig-name descname">Task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">resources</span></em>, <em class="sig-param"><span class="n">duration</span></em>, <em class="sig-param"><span class="n">follows</span><span class="o">=</span><span class="default_value">()</span></em>, <em class="sig-param"><span class="n">max_wait</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">scheduled_start</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">scheduled_resources</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">priority</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">due_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">color</span><span class="o">=</span><span class="default_value">'blue'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/taskpacker/taskpacker.html#Task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#taskpacker.taskpacker.Task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tasks are the steps of a work unit, performed using specific resources.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name</strong></dt><dd><p>Name of the task (appears when printed and plotted).</p>
+</dd>
+<dt><strong>resources</strong></dt><dd><p>list of Resource objects specifying the resources occupied by the task.</p>
+</dd>
+<dt><strong>duration</strong></dt><dd><p>Duration of the task (the choice of the unit is left to the user.</p>
+</dd>
+<dt><strong>scheduled_resource</strong></dt><dd><p>Either None or a dict {resource: slot_used}</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Attributes</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>scheduled_end</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 48%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>to_dict</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py function">
 <dt id="taskpacker.taskpacker.numberjack_scheduler">
-<code class="descclassname">taskpacker.taskpacker.</code><code class="descname">numberjack_scheduler</code><span class="sig-paren">(</span><em>tasks</em>, <em>upper_bound=500</em>, <em>lower_bound=None</em>, <em>optimize=True</em>, <em>time_limit=5</em>, <em>solver_method='Mistral'</em>, <em>randomization=False</em>, <em>verbose_solver=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/taskpacker/taskpacker.html#numberjack_scheduler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#taskpacker.taskpacker.numberjack_scheduler" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">taskpacker.taskpacker.</code><code class="sig-name descname">numberjack_scheduler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tasks</span></em>, <em class="sig-param"><span class="n">upper_bound</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">lower_bound</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">optimize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">time_limit</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">solver_method</span><span class="o">=</span><span class="default_value">'Mistral'</span></em>, <em class="sig-param"><span class="n">randomization</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">verbose_solver</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/taskpacker/taskpacker.html#numberjack_scheduler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#taskpacker.taskpacker.numberjack_scheduler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes an optimized schedule for the processes.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>tasks</strong></p>
-<blockquote>
-<div><p>A list of tasks to be sceduled</p>
-</div></blockquote>
-<p><strong>upper_bound</strong></p>
-<blockquote>
-<div><p>Upper bound for the time. The unit depends on the unit
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>tasks</strong></dt><dd><p>A list of tasks to be sceduled.</p>
+</dd>
+<dt><strong>upper_bound</strong></dt><dd><p>Upper bound for the time. The unit depends on the unit
 chosen for the duration of the work unit’s tasks.</p>
-</div></blockquote>
-<p><strong>optimize</strong></p>
-<blockquote>
-<div><p>If false, any solution satisfying the constraints (including deadlines)
+</dd>
+<dt><strong>optimize</strong></dt><dd><p>If false, any solution satisfying the constraints (including deadlines)
 will be returned. But sometimes it is not possible to respect all
 deadlines. If True, the function will try to return a schedule which
 minimizes the days over the deadlines. The function minimized is the sum
 of (wu.priority*wu.delay) for all work units with a due time.</p>
-</div></blockquote>
-<p><strong>time_limit</strong></p>
-<blockquote>
-<div><p>Time in seconds after which the optimizer stops. If the optimizer stops
+</dd>
+<dt><strong>time_limit</strong></dt><dd><p>Time in seconds after which the optimizer stops. If the optimizer stops
 because of this time limit the solution may not be optimal.</p>
-</div></blockquote>
-<p><strong>solver_method</strong></p>
-<blockquote class="last">
-<div><p>The solver used by NumberJack (see NumberJack docs).</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Examples</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="go">&gt;&gt;&gt;</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="go">&gt;&gt;&gt;</span>
-</pre></div>
-</div>
+</dd>
+<dt><strong>solver_method</strong></dt><dd><p>The solver used by NumberJack (see NumberJack docs).</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 <div class="section" id="module-taskpacker.io">
 <span id="input-output-methods"></span><h2>Input/Output methods<a class="headerlink" href="#module-taskpacker.io" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
+<dl class="py function">
 <dt id="taskpacker.io.plot_schedule">
-<code class="descclassname">taskpacker.io.</code><code class="descname">plot_schedule</code><span class="sig-paren">(</span><em>tasks</em>, <em>legend=False</em>, <em>ax=None</em>, <em>edgewidth=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/taskpacker/io.html#plot_schedule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#taskpacker.io.plot_schedule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot the work units schedule in a gant-like way.</p>
+<code class="sig-prename descclassname">taskpacker.io.</code><code class="sig-name descname">plot_schedule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tasks</span></em>, <em class="sig-param"><span class="n">legend</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">edgewidth</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/taskpacker/io.html#plot_schedule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#taskpacker.io.plot_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the work units schedule in a Gantt chart-like way.</p>
 <p>This is quite basic and arbitrary and really meant for R&amp;D purposes.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="taskpacker.io.plot_tasks_dependency_graph">
-<code class="descclassname">taskpacker.io.</code><code class="descname">plot_tasks_dependency_graph</code><span class="sig-paren">(</span><em>tasks</em>, <em>ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/taskpacker/io.html#plot_tasks_dependency_graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#taskpacker.io.plot_tasks_dependency_graph" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">taskpacker.io.</code><code class="sig-name descname">plot_tasks_dependency_graph</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tasks</span></em>, <em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/taskpacker/io.html#plot_tasks_dependency_graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#taskpacker.io.plot_tasks_dependency_graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the graph of all inter-dependencies in the provided tasks list.</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="taskpacker.io.plot_tree_graph">
-<code class="descclassname">taskpacker.io.</code><code class="descname">plot_tree_graph</code><span class="sig-paren">(</span><em>levels</em>, <em>edges</em>, <em>draw_node</em>, <em>elements_positions=None</em>, <em>ax=None</em>, <em>width_factor=2.5</em>, <em>height_factor=2</em>, <em>scale=1.0</em>, <em>edge_left_space=0.015</em>, <em>edge_right_space=0.015</em>, <em>interlevel_shift=0</em>, <em>**txt_kw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/taskpacker/io.html#plot_tree_graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#taskpacker.io.plot_tree_graph" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">taskpacker.io.</code><code class="sig-name descname">plot_tree_graph</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">levels</span></em>, <em class="sig-param"><span class="n">edges</span></em>, <em class="sig-param"><span class="n">draw_node</span></em>, <em class="sig-param"><span class="n">elements_positions</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">width_factor</span><span class="o">=</span><span class="default_value">2.5</span></em>, <em class="sig-param"><span class="n">height_factor</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">edge_left_space</span><span class="o">=</span><span class="default_value">0.015</span></em>, <em class="sig-param"><span class="n">edge_right_space</span><span class="o">=</span><span class="default_value">0.015</span></em>, <em class="sig-param"><span class="n">interlevel_shift</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">txt_kw</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/taskpacker/io.html#plot_tree_graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#taskpacker.io.plot_tree_graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>General function for plotting tree graphs.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>levels</strong></p>
-<blockquote>
-<div><p>A list of lists of nodes grouped by “level”, i.e distance to the in the
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>levels</strong></dt><dd><p>A list of lists of nodes grouped by “level”, i.e distance to the in the
 graph to the level 0. levels will be displayed on a same column.</p>
-</div></blockquote>
-<p><strong>edges</strong></p>
-<blockquote>
-<div><p>List of nodes pairs (source node, target node).</p>
-</div></blockquote>
-<p><strong>draw_node</strong></p>
-<blockquote>
-<div><p>A function f(x , y , node, ax, <a href="#id1"><span class="problematic" id="id2">**</span></a>kw) which draws something related to the
+</dd>
+<dt><strong>edges</strong></dt><dd><p>List of nodes pairs (source node, target node).</p>
+</dd>
+<dt><strong>draw_node</strong></dt><dd><p>A function f(x , y , node, ax, <a href="#id1"><span class="problematic" id="id2">**</span></a>kw) which draws something related to the
 node at the position x,y on the given Matplotlib ax.</p>
-</div></blockquote>
-<p><strong>ax</strong></p>
-<blockquote class="last">
-<div><p>The matplotlib ax to use. If none is provided, a new ax is generated.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt><strong>ax</strong></dt><dd><p>The matplotlib ax to use. If none is provided, a new ax is generated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -312,16 +311,14 @@ node at the position x,y on the given Matplotlib ax.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="index.html" class="btn btn-neutral" title="Taskpacker Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Main features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -330,11 +327,19 @@ node at the position x,y on the given Matplotlib ax.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Edinburgh Genome Foundry.
+        
+        &copy; Copyright 2017, Edinburgh Genome Foundry
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -346,37 +351,15 @@ node at the position x,y on the given Matplotlib ax.</p>
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>
