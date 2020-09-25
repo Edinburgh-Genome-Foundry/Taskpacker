@@ -105,7 +105,7 @@ def resources_from_spreadsheet(spreadsheet_path, sheetname="resources"):
 
 
 def plot_schedule(tasks, legend=False, ax=None, edgewidth=1.0):
-    """ Plot the work units schedule in a gant-like way.
+    """ Plot the work units schedule in a Gantt chart-like way.
 
     This is quite basic and arbitrary and really meant for R&D purposes.
     """
