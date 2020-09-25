@@ -5,9 +5,12 @@ python:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install libxml2-dev swig
+  - pip install --upgrade pip
 install:
-  - pip install pytest networkx
+  - pip install --upgrade pytest pytest-cov coveralls networkx
   - pip install -e .
 # command to run tests
 script:
-  - python -m pytest
+  - python -m pytest -v --cov taskpacker --cov-report term-missing
+after_success:
+  - coveralls

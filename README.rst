@@ -5,6 +5,13 @@
     <br /><br />
     </p>
 
+.. image:: https://travis-ci.org/Edinburgh-Genome-Foundry/Taskpacker.svg?branch=master
+    :target: https://travis-ci.org/Edinburgh-Genome-Foundry/Taskpacker
+
+.. image:: https://coveralls.io/repos/github/Edinburgh-Genome-Foundry/Taskpacker/badge.svg?branch=master
+    :target: https://coveralls.io/github/Edinburgh-Genome-Foundry/Taskpacker?branch=master
+
+
 Taskpacker is a generic schedule optimization and visualization library for Python.
 For instance, below is an optimized schedule where 20 processes (each comprised of several tasks and represented by one color) are ran 24/7 in a factory:
 
