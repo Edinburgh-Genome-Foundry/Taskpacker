@@ -151,14 +151,6 @@ def numberjack_scheduler(
 ):
     """Makes an optimized schedule for the processes.
 
-    Examples
-    --------
-
-    >>>
-    >>>
-    >>>
-    >>>
-
     Parameters
     -----------
 
