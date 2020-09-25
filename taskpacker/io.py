@@ -37,7 +37,7 @@ def tasks_from_spreadsheet(
     if spreadsheet_path.endswith("csv"):
         process_df = pandas.read_csv(spreadsheet_path, sep=sep)
     else:
-        process_df = pandas.read_excel(spreadsheet_path, sheetname=sheetname)
+        process_df = pandas.read_excel(spreadsheet_path, sheet_name=sheetname)
     process_tasks = {}
     tasks_list = []
     for i, row in process_df.iterrows():
