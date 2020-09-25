@@ -11,7 +11,7 @@ setup(
     version=__version__,
     author="Valentin",
     description="",
-    long_description=open("README.rst").read(),
+    long_description=open("pypi-readme.rst").read(),
     license="MIT",
     keywords="",
     packages=find_packages(exclude="docs"),
